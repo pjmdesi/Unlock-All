@@ -1,21 +1,21 @@
-// This plugin creates 5 rectangles on the screen.
-const numberOfRectangles = 5
+// This plugin unlocks all locked layers on the current page
+// I find this type of thing super useful in some cases, for instance: when replacing several locked background layers from an inported Sketch file. That's the exact situation I was in when I developed this plugin.
 
-// This file holds the main code for the plugins. It has access to the *document*.
-// You can access browser APIs such as the network by creating a UI which contains
-// a full browser environment (see documentation).
+const node = figma.currentPage;
 
-const nodes: SceneNode[] = [];
-for (let i = 0; i < numberOfRectangles; i++) {
-  const rect = figma.createRectangle();
-  rect.x = i * 150;
-  rect.fills = [{type: 'SOLID', color: {r: 1, g: 0.5, b: 0}}];
-  figma.currentPage.appendChild(rect);
-  nodes.push(rect);
+const nodes = node.findAll(node => node.locked == true);
+const nodesno = nodes.length;
+
+console.log(nodesno);
+
+
+if (nodesno > 0) {
+	nodes.forEach(i => {
+		i.locked = false;
+	});
+	alert(nodesno + ' layer'+(nodesno==1?' has':'s have')+' been unlocked!');
+} else {
+	alert('No layers are locked');
 }
-figma.currentPage.selection = nodes;
-figma.viewport.scrollAndZoomIntoView(nodes);
 
-// Make sure to close the plugin when you're done. Otherwise the plugin will
-// keep running, which shows the cancel button at the bottom of the screen.
 figma.closePlugin();
