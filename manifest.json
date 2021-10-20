@@ -1,6 +1,7 @@
 {
   "name": "Unlock All",
-  "id": "804825707468787864",
+  "id": "1032688500948147925",
   "api": "1.0.0",
-  "main": "code.js"
+  "main": "code.js",
+  "editorType": ["figma"]
 }
